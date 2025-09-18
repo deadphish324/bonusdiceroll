@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Term Quiz Bonus Multiplier</title>
+    <title>Term Quiz Bonus Games</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -43,9 +43,19 @@
             z-index: 1;
         }
 
+        .page {
+            display: none;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
         .title {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 3rem;
@@ -58,6 +68,96 @@
             background-clip: text;
         }
 
+        .back-button {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            color: #e8d5b7;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #A0522D 0%, #CD853F 50%, #A0522D 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Landing Page Styles */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .game-card {
+            background: rgba(30, 30, 60, 0.8);
+            border: 3px solid #d4af37;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .game-card:hover::before {
+            left: 100%;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: #ffd700;
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.3);
+        }
+
+        .game-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .game-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #d4af37;
+        }
+
+        .game-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Dice Game Styles (keeping existing) */
         .dice-container {
             position: relative;
             margin-bottom: 2rem;
@@ -202,7 +302,155 @@
             }
         }
 
-        .roll-button {
+        /* Slot Machine Styles */
+        .slot-machine {
+            background: rgba(30, 30, 60, 0.9);
+            border: 4px solid #d4af37;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem auto;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+            max-width: 1000px;
+        }
+
+        .slot-reels {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .reel {
+            width: 180px;
+            height: 240px;
+            background: linear-gradient(135deg, #2F4F4F 0%, #708090 50%, #2F4F4F 100%);
+            border: 4px solid #d4af37;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 0 20px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .reel-window {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            background: #1a1a2e;
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .reel.spinning .reel-window {
+            animation: reelSpin 2s linear infinite;
+        }
+
+        @keyframes reelSpin {
+            0% { transform: translate(-50%, -50%) rotateY(0deg); }
+            100% { transform: translate(-50%, -50%) rotateY(360deg); }
+        }
+
+        .slot-button {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            border: 3px solid #d4af37;
+            border-radius: 15px;
+            color: #e8d5b7;
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 20px 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.3),
+                inset 0 2px 0 rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 2rem auto;
+            display: block;
+        }
+
+        .slot-button:hover {
+            background: linear-gradient(135deg, #A0522D 0%, #CD853F 50%, #A0522D 100%);
+            box-shadow: 
+                0 8px 30px rgba(0, 0, 0, 0.4),
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                0 0 30px rgba(212, 175, 55, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .slot-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .jackpot-display {
+            text-align: center;
+            margin: 2rem 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .jackpot-text {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .bonus-image {
+            max-width: 300px;
+            max-height: 300px;
+            border: 3px solid #d4af37;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            margin-top: 1rem;
+        }
+
+        .jackpot-animate {
+            animation: jackpotGlow 2s ease-in-out;
+        }
+
+        @keyframes jackpotGlow {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.5); 
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.1); 
+                text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1); 
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            }
+        }
+
+        .multiplier {
+            color: #32CD32;
+            text-shadow: 0 0 10px rgba(50, 205, 50, 0.5);
+        }
+
+        /* Shared Styles */
+        .game-button {
             background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
             border: 2px solid #d4af37;
             border-radius: 8px;
@@ -221,26 +469,13 @@
             margin-bottom: 2rem;
         }
 
-        .roll-button:hover {
+        .game-button:hover {
             background: linear-gradient(135deg, #A0522D 0%, #CD853F 50%, #A0522D 100%);
             box-shadow: 
                 0 6px 20px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.3),
                 0 0 20px rgba(212, 175, 55, 0.3);
             transform: translateY(-2px);
-        }
-
-        .roll-button:active {
-            transform: translateY(0);
-            box-shadow: 
-                0 2px 8px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .roll-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
         }
 
         .result {
@@ -264,75 +499,6 @@
             0% { opacity: 0; transform: scale(0.8); }
             50% { opacity: 1; transform: scale(1.1); }
             100% { opacity: 1; transform: scale(1); }
-        }
-
-        .multiplier {
-            color: #32CD32;
-            text-shadow: 0 0 10px rgba(50, 205, 50, 0.5);
-        }
-
-        .d20-display {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .d20-static {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 1rem;
-            background: linear-gradient(135deg, #2F4F4F 0%, #708090 50%, #2F4F4F 100%);
-            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-            border: 2px solid #d4af37;
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.3),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
-            position: relative;
-            transform-style: preserve-3d;
-        }
-
-        .d20-static::before {
-            content: 'd20';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #e8d5b7;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .probabilities {
-            background: rgba(30, 30, 60, 0.7);
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .probabilities h3 {
-            font-family: 'Cinzel', serif;
-            color: #d4af37;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-size: 1.3rem;
-        }
-
-        .prob-list {
-            list-style: none;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .prob-list li {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.3rem 0;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .prob-list li:last-child {
-            border-bottom: none;
         }
 
         .particles {
@@ -384,25 +550,78 @@
                     0 8px 40px rgba(0, 0, 0, 0.4);
             }
         }
+
+        .probabilities {
+            background: rgba(30, 30, 60, 0.7);
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-top: 2rem;
+        }
+
+        .probabilities h3 {
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+
+        .prob-list {
+            list-style: none;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .prob-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .prob-list li:last-child {
+            border-bottom: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="title">Term Quiz Bonus Multiplier</h1>
-        
-        <div class="dice-container">
-            <div class="dice" id="dice">
-                <span id="diceNumber">?</span>
+        <!-- Landing Page -->
+        <div class="page active" id="landing">
+            <h1 class="title">Term Quiz Bonus Games</h1>
+            <div class="game-grid">
+                <div class="game-card" onclick="showPage('dice')">
+                    <span class="game-icon">🎲</span>
+                    <h2 class="game-title">Dice Roll Multiplier</h2>
+                    <p class="game-description">Roll the mystical d20 dice for bonus multipliers up to ×5!</p>
+                </div>
+                <div class="game-card" onclick="showPage('slots')">
+                    <span class="game-icon">🎰</span>
+                    <h2 class="game-title">Medieval Slot Machine</h2>
+                    <p class="game-description">Spin the reels with legendary symbols for epic bonus rewards!</p>
+                </div>
             </div>
-            <div class="particles" id="particles"></div>
         </div>
-        
-        <button class="roll-button" id="rollButton" onclick="rollDice()">Let's Roll the Dice!</button>
-        
-        <div class="result" id="result"></div>
-        
-        <div class="d20-display">
-            <div class="d20-static"></div>
+
+        <!-- Dice Game Page -->
+        <div class="page" id="dice">
+            <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
+            <h1 class="title">Dice Roll Multiplier</h1>
+            
+            <div class="dice-container">
+                <div class="dice" id="dice">
+                    <span id="diceNumber">?</span>
+                </div>
+                <div class="particles" id="particles"></div>
+            </div>
+            
+            <button class="game-button" id="rollButton" onclick="rollDice()">Let's Roll the Dice!</button>
+            
+            <div class="result" id="result"></div>
+            
             <div class="probabilities">
                 <h3>Bonus Multipliers Available</h3>
                 <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
@@ -417,6 +636,46 @@
                 </ul>
             </div>
         </div>
+
+        <!-- Slot Machine Page -->
+        <div class="page" id="slots">
+            <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
+            <h1 class="title">Medieval Slot Machine</h1>
+            
+            <div class="slot-machine">
+                <div class="slot-reels">
+                    <div class="reel" id="reel1">
+                        <div class="reel-window" id="symbol1">⚔️</div>
+                    </div>
+                    <div class="reel" id="reel2">
+                        <div class="reel-window" id="symbol2">🛡️</div>
+                    </div>
+                    <div class="reel" id="reel3">
+                        <div class="reel-window" id="symbol3">👑</div>
+                    </div>
+                </div>
+                
+                <button class="slot-button" id="slotButton" onclick="spinSlots()">🎰 SPIN THE REELS 🎰</button>
+                
+                <div class="jackpot-display" id="jackpotDisplay">
+                    <div class="jackpot-text" id="jackpotText"></div>
+                </div>
+            </div>
+
+            <div class="probabilities">
+                <h3>Winning Combinations</h3>
+                <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
+                    🎰 Match symbols for epic rewards! 🎰
+                </p>
+                <ul class="prob-list">
+                    <li><span>×0 (No Match)</span><span>65%</span></li>
+                    <li><span>×2 (Two Match)</span><span>15%</span></li>
+                    <li><span>×3 (Special Combos)</span><span>10%</span></li>
+                    <li><span>×4 (Triple + Rare)</span><span>5%</span></li>
+                    <li><span>×5 (Legendary)</span><span>5%</span></li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -428,7 +687,6 @@
                 if (!audioContext) {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 }
-                // Resume audio context if it's suspended (required by some browsers)
                 if (audioContext.state === 'suspended') {
                     audioContext.resume();
                 }
@@ -438,17 +696,29 @@
             }
         }
 
+        // Navigation functions
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Initialize audio on first interaction
+            initAudio();
+        }
+
+        // Sound functions
         function createDiceRollSound() {
             if (!audioContext) return;
             
-            // Create multiple impact sounds for dice bouncing
             for (let i = 0; i < 8; i++) {
                 setTimeout(() => {
-                    createImpactSound(0.3 - (i * 0.02)); // Decreasing volume
+                    createImpactSound(0.3 - (i * 0.02));
                 }, i * 300 + Math.random() * 200);
             }
             
-            // Add rolling rattle sounds
             for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
                     createRattleSound(0.15);
@@ -466,7 +736,6 @@
                 filterNode.connect(gainNode);
                 gainNode.connect(audioContext.destination);
                 
-                // Create a thud/impact sound
                 oscillator.frequency.setValueAtTime(120 + Math.random() * 80, audioContext.currentTime);
                 oscillator.frequency.exponentialRampToValueAtTime(60, audioContext.currentTime + 0.1);
                 
@@ -498,7 +767,6 @@
                 filterNode.connect(gainNode);
                 gainNode.connect(audioContext.destination);
                 
-                // Create a rattle/rolling sound
                 oscillator.frequency.setValueAtTime(200 + Math.random() * 400, audioContext.currentTime);
                 
                 filterNode.type = 'highpass';
@@ -561,14 +829,12 @@
                 let stopTime;
                 
                 if (isBonus) {
-                    // Victory sound for bonus
                     oscillator.frequency.setValueAtTime(400, startTime);
                     oscillator.frequency.exponentialRampToValueAtTime(800, startTime + 0.3);
                     gainNode.gain.setValueAtTime(0.3, startTime);
                     gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + 0.5);
                     stopTime = startTime + 0.5;
                 } else {
-                    // Neutral sound for no bonus
                     oscillator.frequency.setValueAtTime(300, startTime);
                     oscillator.frequency.exponentialRampToValueAtTime(250, startTime + 0.2);
                     gainNode.gain.setValueAtTime(0.2, startTime);
@@ -584,17 +850,67 @@
             }
         }
 
-        // Define the weighted outcomes for the d20
-        const outcomes = [
-            // 13 faces with no multiplier (faces 1-13)
+        function createSlotSpinSound() {
+            if (!audioContext) return;
+            
+            // Create mechanical spinning sound
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    try {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.frequency.setValueAtTime(150 + Math.random() * 100, audioContext.currentTime);
+                        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+                        
+                        oscillator.type = 'sawtooth';
+                        oscillator.start(audioContext.currentTime);
+                        oscillator.stop(audioContext.currentTime + 0.1);
+                    } catch (error) {
+                        console.log('Audio error:', error);
+                    }
+                }, i * 100);
+            }
+        }
+
+        function createJackpotSound() {
+            try {
+                if (!audioContext) return;
+                
+                // Victory fanfare
+                const frequencies = [400, 500, 600, 800];
+                frequencies.forEach((freq, i) => {
+                    setTimeout(() => {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+                        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.4);
+                        
+                        oscillator.type = 'sine';
+                        oscillator.start(audioContext.currentTime);
+                        oscillator.stop(audioContext.currentTime + 0.4);
+                    }, i * 100);
+                });
+            } catch (error) {
+                console.log('Audio error:', error);
+            }
+        }
+
+        // Dice Game Functions
+        const diceOutcomes = [
             ...Array(13).fill(null).map((_, i) => ({ face: i + 1, multiplier: null })),
-            // 3 faces with x2 multiplier (faces 14-16)
             ...Array(3).fill(null).map((_, i) => ({ face: i + 14, multiplier: 2 })),
-            // 2 faces with x3 multiplier (faces 17-18)
             ...Array(2).fill(null).map((_, i) => ({ face: i + 17, multiplier: 3 })),
-            // 1 face with x4 multiplier (face 19)
             { face: 19, multiplier: 4 },
-            // 1 face with x5 multiplier (face 20)
             { face: 20, multiplier: 5 }
         ];
 
@@ -618,30 +934,21 @@
             const result = document.getElementById('result');
             const rollButton = document.getElementById('rollButton');
 
-            // Initialize audio context on first interaction
             initAudio();
-
-            // Disable button during roll
             rollButton.disabled = true;
             
-            // Clear previous result
             result.textContent = '';
             result.classList.remove('animate');
             
-            // Start rolling animation and sound
             dice.classList.add('rolling', 'glow');
             diceNumber.textContent = '?';
             
-            // Play dice rolling sound
             createDiceRollSound();
-            
-            // Create particle effect
             createParticles();
             
-            // Simulate rolling by showing random multipliers
             let rollCount = 0;
             const rollInterval = setInterval(() => {
-                const randomOutcome = outcomes[Math.floor(Math.random() * outcomes.length)];
+                const randomOutcome = diceOutcomes[Math.floor(Math.random() * diceOutcomes.length)];
                 if (randomOutcome.multiplier) {
                     diceNumber.textContent = '×' + randomOutcome.multiplier;
                 } else {
@@ -652,15 +959,12 @@
                 if (rollCount > 25) {
                     clearInterval(rollInterval);
                     
-                    // Get final result
-                    const randomIndex = Math.floor(Math.random() * outcomes.length);
-                    const outcome = outcomes[randomIndex];
+                    const randomIndex = Math.floor(Math.random() * diceOutcomes.length);
+                    const outcome = diceOutcomes[randomIndex];
                     
-                    // Stop rolling animation and start countdown
                     dice.classList.remove('rolling');
                     diceNumber.textContent = '?';
                     
-                    // Start countdown sequence
                     startCountdown(dice, diceNumber, result, rollButton, outcome);
                 }
             }, 120);
@@ -674,7 +978,6 @@
                 diceNumber.textContent = count;
                 diceNumber.className = 'countdown-number';
                 
-                // Play countdown sound
                 createCountdownSound();
                 
                 count--;
@@ -682,21 +985,17 @@
                 if (count < 0) {
                     clearInterval(countdownInterval);
                     
-                    // Reset dice styling
                     diceNumber.className = '';
                     dice.classList.remove('countdown', 'glow');
                     
-                    // Show final result on dice
                     if (outcome.multiplier) {
                         diceNumber.textContent = '×' + outcome.multiplier;
                     } else {
                         diceNumber.textContent = '×0';
                     }
                     
-                    // Play reveal sound
                     createRevealSound(outcome.multiplier > 0);
                     
-                    // Show result text
                     let resultText;
                     if (outcome.multiplier) {
                         resultText = `Your multiplier is <span class="multiplier">×${outcome.multiplier}</span>! 🎉 BONUS ACTIVATED!`;
@@ -707,16 +1006,150 @@
                     result.innerHTML = resultText;
                     result.classList.add('animate');
                     
-                    // Re-enable button
                     rollButton.disabled = false;
                 }
             }, 800);
         }
 
-        // Add some ambient glow effect
+        // Slot Machine Functions
+        const symbols = ['⚔️', '🛡️', '👑', '💎'];
+        
+        // Create weighted slot outcomes with same probabilities
+        const slotOutcomes = [];
+        
+        // No bonus (65%) - 42 outcomes
+        for (let i = 0; i < 42; i++) {
+            const s1 = symbols[Math.floor(Math.random() * 4)];
+            let s2, s3;
+            do {
+                s2 = symbols[Math.floor(Math.random() * 4)];
+                s3 = symbols[Math.floor(Math.random() * 4)];
+            } while (s1 === s2 || s2 === s3 || s1 === s3); // Ensure no matches
+            slotOutcomes.push({ symbols: [s1, s2, s3], multiplier: 0 });
+        }
+        
+        // 2x bonus (15%) - 10 outcomes (two matching)
+        for (let i = 0; i < 10; i++) {
+            const match = symbols[Math.floor(Math.random() * 4)];
+            let different;
+            do {
+                different = symbols[Math.floor(Math.random() * 4)];
+            } while (different === match);
+            const arrangements = [
+                [match, match, different],
+                [match, different, match],
+                [different, match, match]
+            ];
+            const arrangement = arrangements[Math.floor(Math.random() * 3)];
+            slotOutcomes.push({ symbols: arrangement, multiplier: 2 });
+        }
+        
+        // 3x bonus (10%) - 6 outcomes (special combinations)
+        const specialCombos = [
+            ['⚔️', '⚔️', '🛡️'], ['🛡️', '🛡️', '⚔️'],
+            ['👑', '👑', '💎'], ['💎', '💎', '👑'],
+            ['⚔️', '👑', '⚔️'], ['🛡️', '💎', '🛡️']
+        ];
+        specialCombos.forEach(combo => {
+            slotOutcomes.push({ symbols: combo, multiplier: 3 });
+        });
+        
+        // 4x bonus (5%) - 3 outcomes (including triple sword for rhetoric book)
+        slotOutcomes.push({ symbols: ['⚔️', '⚔️', '⚔️'], multiplier: 4, special: 'rhetoric' });
+        slotOutcomes.push({ symbols: ['🛡️', '🛡️', '🛡️'], multiplier: 4 });
+        slotOutcomes.push({ symbols: ['💎', '👑', '💎'], multiplier: 4 });
+        
+        // 5x bonus (5%) - 3 outcomes (including triple crown for professional image)
+        slotOutcomes.push({ symbols: ['👑', '👑', '👑'], multiplier: 5, special: 'professional' });
+        slotOutcomes.push({ symbols: ['💎', '💎', '💎'], multiplier: 5 });
+        slotOutcomes.push({ symbols: ['⚔️', '🛡️', '👑'], multiplier: 5 });
+
+        function spinSlots() {
+            const reels = document.querySelectorAll('.reel');
+            const slotButton = document.getElementById('slotButton');
+            const jackpotDisplay = document.getElementById('jackpotDisplay');
+            const jackpotText = document.getElementById('jackpotText');
+            
+            initAudio();
+            slotButton.disabled = true;
+            
+            // Clear previous result
+            jackpotDisplay.innerHTML = '<div class="jackpot-text" id="jackpotText"></div>';
+            
+            // Start spinning animation
+            reels.forEach(reel => reel.classList.add('spinning'));
+            
+            createSlotSpinSound();
+            
+            // Simulate spinning with random symbols
+            let spinCount = 0;
+            const spinInterval = setInterval(() => {
+                document.getElementById('symbol1').textContent = symbols[Math.floor(Math.random() * 4)];
+                document.getElementById('symbol2').textContent = symbols[Math.floor(Math.random() * 4)];
+                document.getElementById('symbol3').textContent = symbols[Math.floor(Math.random() * 4)];
+                spinCount++;
+                
+                if (spinCount > 20) {
+                    clearInterval(spinInterval);
+                    
+                    // Get final result
+                    const outcome = slotOutcomes[Math.floor(Math.random() * slotOutcomes.length)];
+                    
+                    // Stop one reel at a time for dramatic effect
+                    setTimeout(() => {
+                        document.getElementById('reel1').classList.remove('spinning');
+                        document.getElementById('symbol1').textContent = outcome.symbols[0];
+                        createImpactSound(0.2);
+                    }, 500);
+                    
+                    setTimeout(() => {
+                        document.getElementById('reel2').classList.remove('spinning');
+                        document.getElementById('symbol2').textContent = outcome.symbols[1];
+                        createImpactSound(0.2);
+                    }, 1000);
+                    
+                    setTimeout(() => {
+                        document.getElementById('reel3').classList.remove('spinning');
+                        document.getElementById('symbol3').textContent = outcome.symbols[2];
+                        createImpactSound(0.2);
+                        
+                        // Show result
+                        setTimeout(() => {
+                            showSlotResult(outcome);
+                            slotButton.disabled = false;
+                        }, 500);
+                    }, 1500);
+                }
+            }, 100);
+        }
+
+        function showSlotResult(outcome) {
+            const jackpotDisplay = document.getElementById('jackpotDisplay');
+            
+            if (outcome.multiplier > 0) {
+                let resultHTML = `<div class="jackpot-text jackpot-animate">🎰 <span class="multiplier">×${outcome.multiplier} BONUS!</span> 🎰</div>`;
+                
+                // Show special images
+                if (outcome.special === 'rhetoric') {
+                    resultHTML += `<div>📚 UNDERSTANDING RHETORIC REVEALED! 📚</div>
+                                  <img class="bonus-image" src="./Cover-removebg-preview.png" alt="Understanding Rhetoric Book Cover">`;
+                } else if (outcome.special === 'professional') {
+                    resultHTML += `<div>👨‍💼 PROFESSIONAL EXCELLENCE ACHIEVED! 👨‍💼</div>
+                                  <img class="bonus-image" src="./Profile-removebg-preview.png" alt="Professional Headshot">`;
+                }
+                
+                createJackpotSound();
+                jackpotDisplay.innerHTML = resultHTML;
+            } else {
+                jackpotDisplay.innerHTML = '<div class="jackpot-text">No bonus this time! Try again! 🎰</div>';
+                createRevealSound(false);
+            }
+        }
+
+        // Add some ambient glow effect for dice
         setInterval(() => {
             const dice = document.getElementById('dice');
-            if (!dice.classList.contains('rolling')) {
+            if (dice && !dice.classList.contains('rolling')) {
                 dice.classList.add('glow');
                 setTimeout(() => {
                     dice.classList.remove('glow');
