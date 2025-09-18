@@ -747,7 +747,7 @@
             
             <p style="font-size: 1.3rem; color: #d4af37; margin-bottom: 2rem; text-align: center;">Choose one chest to reveal your bonus!</p>
             
-            <div id="treasureGrid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 2rem auto; max-width: 600px;">
+            <div id="treasureGrid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; margin: 2rem auto; max-width: 800px;">
                 <!-- Chests will be dynamically generated -->
             </div>
             
@@ -1413,15 +1413,36 @@
                 selectedReward = { multiplier: 5, symbol: '👨‍🏫', message: '👨‍🏫 MR. CUNNINGHAM EXCELLENCE! ×5 BONUS!' };
             }
             
+            // Create 20 treasure chests - about 2/3 empty (13), spread others out
             const chestContents = [
+                // 13 empty chests (65%)
                 { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
                 { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
                 { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
+                // 3 x2 chests (15%)
                 { multiplier: 2, symbol: '🦅', message: 'Milford Hawks Pride!' },
+                { multiplier: 2, symbol: '🦅', message: 'Milford Hawks Pride!' },
+                { multiplier: 2, symbol: '🦅', message: 'Milford Hawks Pride!' },
+                // 2 x3 chests (10%)
                 { multiplier: 3, symbol: '✏️', message: 'AP Lang Mastery!' },
+                { multiplier: 3, symbol: '✏️', message: 'AP Lang Mastery!' },
+                // 1 x4 chest (5%)
+                { multiplier: 4, symbol: '📚', message: 'Understanding Rhetoric Mastery!' },
+                // 1 x5 chest (5%) - will be replaced with selectedReward
                 selectedReward
             ];
             
+            // Shuffle the chests
             for (let i = chestContents.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [chestContents[i], chestContents[j]] = [chestContents[j], chestContents[i]];
@@ -1439,19 +1460,20 @@
             if (treasureGrid) {
                 treasureGrid.innerHTML = '';
                 
-                for (let i = 0; i < 6; i++) {
+                // Create 20 chests instead of 6
+                for (let i = 0; i < 20; i++) {
                     const chest = document.createElement('div');
                     chest.innerHTML = '📦';
                     chest.style.cssText = `
-                        width: 120px; 
-                        height: 120px; 
+                        width: 100px; 
+                        height: 100px; 
                         background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%); 
                         border: 3px solid #d4af37; 
                         border-radius: 15px; 
                         display: flex; 
                         align-items: center; 
                         justify-content: center; 
-                        font-size: 3rem; 
+                        font-size: 2.5rem; 
                         cursor: pointer; 
                         transition: all 0.3s ease; 
                         position: relative; 
