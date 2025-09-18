@@ -41,6 +41,7 @@
             padding: 20px;
             position: relative;
             z-index: 1;
+            text-align: center;
         }
 
         .page {
@@ -160,7 +161,10 @@
         /* Dice Game Styles (keeping existing) */
         .dice-container {
             position: relative;
-            margin-bottom: 2rem;
+            margin: 2rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .dice {
@@ -607,37 +611,35 @@
         </div>
 
         <!-- Dice Game Page -->
-        <div class="page" id="dice">
-            <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-                <h1 class="title">Dice Roll Multiplier</h1>
-                
-                <div class="dice-container">
-                    <div class="dice" id="dice">
-                        <span id="diceNumber">?</span>
-                    </div>
-                    <div class="particles" id="particles"></div>
-                </div>
-                
-                <button class="game-button" id="rollButton" onclick="rollDice()">Let's Roll the Dice!</button>
-                
-                <div class="result" id="result"></div>
-                
-                <div class="probabilities">
-                    <h3>Bonus Multipliers Available</h3>
-                    <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
-                        🎲 You can get up to ×5 bonus! 🎲
-                    </p>
-                    <ul class="prob-list">
-                        <li><span>×0 (No Bonus)</span><span>13/20 (65%)</span></li>
-                        <li><span>×2 Multiplier</span><span>3/20 (15%)</span></li>
-                        <li><span>×3 Multiplier</span><span>2/20 (10%)</span></li>
-                        <li><span>×4 Multiplier</span><span>1/20 (5%)</span></li>
-                        <li><span>×5 Multiplier</span><span>1/20 (5%)</span></li>
-                    </ul>
-                </div>
-            </div>
+<div class="page" id="dice">
+    <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
+    <h1 class="title">Dice Roll Multiplier</h1>
+    
+    <div class="dice-container">
+        <div class="dice" id="dice">
+            <span id="diceNumber">?</span>
         </div>
+        <div class="particles" id="particles"></div>
+    </div>
+    
+    <button class="game-button" id="rollButton" onclick="rollDice()">Let's Roll the Dice!</button>
+    
+    <div class="result" id="result"></div>
+    
+    <div class="probabilities">
+        <h3>Bonus Multipliers Available</h3>
+        <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
+            🎲 You can get up to ×5 bonus! 🎲
+        </p>
+        <ul class="prob-list">
+            <li><span>×0 (No Bonus)</span><span>13/20 (65%)</span></li>
+            <li><span>×2 Multiplier</span><span>3/20 (15%)</span></li>
+            <li><span>×3 Multiplier</span><span>2/20 (10%)</span></li>
+            <li><span>×4 Multiplier</span><span>1/20 (5%)</span></li>
+            <li><span>×5 Multiplier</span><span>1/20 (5%)</span></li>
+        </ul>
+    </div>
+</div>
 
         <!-- Slot Machine Page -->
         <div class="page" id="slots">
@@ -665,16 +667,16 @@
             </div>
 
             <div class="probabilities">
-                <h3>Winning Combinations</h3>
+                <h3>Winning Combinations & Rewards</h3>
                 <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
-                    🎰 Match symbols for epic rewards! 🎰
+                    🎰 Match symbols for epic rewards & images! 🎰
                 </p>
                 <ul class="prob-list">
                     <li><span>×0 (No Match)</span><span>65%</span></li>
-                    <li><span>×2 (Two Match)</span><span>15%</span></li>
-                    <li><span>×3 (Special Combos)</span><span>10%</span></li>
-                    <li><span>×4 (Triple + Rare)</span><span>5%</span></li>
-                    <li><span>×5 (Legendary)</span><span>5%</span></li>
+                    <li><span>×2 (Two Match) → 🦅 Hawk Vision</span><span>15%</span></li>
+                    <li><span>×3 (Special Combos) → ⭐ Gold Star / 📄 Document</span><span>10%</span></li>
+                    <li><span>×4 (Triple + Rare) → 📚 Book Cover</span><span>5%</span></li>
+                    <li><span>×5 (Legendary) → 👨‍💼 Professional Photo</span><span>5%</span></li>
                 </ul>
             </div>
         </div>
@@ -1043,28 +1045,31 @@
                 [different, match, match]
             ];
             const arrangement = arrangements[Math.floor(Math.random() * 3)];
-            slotOutcomes.push({ symbols: arrangement, multiplier: 2 });
+            slotOutcomes.push({ symbols: arrangement, multiplier: 2, special: 'hawk' });
         }
         
         // 3x bonus (10%) - 6 outcomes (special combinations)
         const specialCombos = [
-            ['⚔️', '⚔️', '🛡️'], ['🛡️', '🛡️', '⚔️'],
-            ['👑', '👑', '💎'], ['💎', '💎', '👑'],
-            ['⚔️', '👑', '⚔️'], ['🛡️', '💎', '🛡️']
+            { symbols: ['⚔️', '⚔️', '🛡️'], special: 'goldstar' },
+            { symbols: ['🛡️', '🛡️', '⚔️'], special: 'goldstar' },
+            { symbols: ['👑', '👑', '💎'], special: 'goldstar' },
+            { symbols: ['💎', '💎', '👑'], special: 'form' },
+            { symbols: ['⚔️', '👑', '⚔️'], special: 'form' },
+            { symbols: ['🛡️', '💎', '🛡️'], special: 'form' }
         ];
         specialCombos.forEach(combo => {
-            slotOutcomes.push({ symbols: combo, multiplier: 3 });
+            slotOutcomes.push({ symbols: combo.symbols, multiplier: 3, special: combo.special });
         });
         
-        // 4x bonus (5%) - 3 outcomes (including triple sword for rhetoric book)
-        slotOutcomes.push({ symbols: ['⚔️', '⚔️', '⚔️'], multiplier: 4, special: 'rhetoric' });
-        slotOutcomes.push({ symbols: ['🛡️', '🛡️', '🛡️'], multiplier: 4 });
-        slotOutcomes.push({ symbols: ['💎', '👑', '💎'], multiplier: 4 });
+        // 4x bonus (5%) - 3 outcomes (including triple sword for book)
+        slotOutcomes.push({ symbols: ['⚔️', '⚔️', '⚔️'], multiplier: 4, special: 'book' });
+        slotOutcomes.push({ symbols: ['🛡️', '🛡️', '🛡️'], multiplier: 4, special: 'book' });
+        slotOutcomes.push({ symbols: ['💎', '👑', '💎'], multiplier: 4, special: 'book' });
         
-        // 5x bonus (5%) - 3 outcomes (including triple crown for professional image)
-        slotOutcomes.push({ symbols: ['👑', '👑', '👑'], multiplier: 5, special: 'professional' });
-        slotOutcomes.push({ symbols: ['💎', '💎', '💎'], multiplier: 5 });
-        slotOutcomes.push({ symbols: ['⚔️', '🛡️', '👑'], multiplier: 5 });
+        // 5x bonus (5%) - 3 outcomes (including triple crown for profile)
+        slotOutcomes.push({ symbols: ['👑', '👑', '👑'], multiplier: 5, special: 'profile' });
+        slotOutcomes.push({ symbols: ['💎', '💎', '💎'], multiplier: 5, special: 'profile' });
+        slotOutcomes.push({ symbols: ['⚔️', '🛡️', '👑'], multiplier: 5, special: 'profile' });
 
         function spinSlots() {
             const reels = document.querySelectorAll('.reel');
@@ -1131,13 +1136,22 @@
             if (outcome.multiplier > 0) {
                 let resultHTML = `<div class="jackpot-text jackpot-animate">🎰 <span class="multiplier">×${outcome.multiplier} BONUS!</span> 🎰</div>`;
                 
-                // Show special images
-                if (outcome.special === 'rhetoric') {
-                    resultHTML += `<div>📚 UNDERSTANDING RHETORIC REVEALED! 📚</div>
-                                  <img class="bonus-image" src="Cover-removebg-preview.png" alt="Understanding Rhetoric Book Cover" onerror="this.style.display='none'; console.log('Image failed to load: Cover-removebg-preview.png')">`;
-                } else if (outcome.special === 'professional') {
+                // Show special images for different outcomes
+                if (outcome.special === 'profile') {
                     resultHTML += `<div>👨‍💼 PROFESSIONAL EXCELLENCE ACHIEVED! 👨‍💼</div>
-                                  <img class="bonus-image" src="Profile-removebg-preview.png" alt="Professional Headshot" onerror="this.style.display='none'; console.log('Image failed to load: Profile-removebg-preview.png')">`;
+                                  <img class="bonus-image" src="Profile-removebg-preview.png" alt="Professional Headshot" onerror="this.src='https://raw.githubusercontent.com/yourusername/yourrepo/main/Profile-removebg-preview.png'; console.log('Trying GitHub raw URL for profile')">`;
+                } else if (outcome.special === 'book') {
+                    resultHTML += `<div>📚 UNDERSTANDING RHETORIC REVEALED! 📚</div>
+                                  <img class="bonus-image" src="Cover-removebg-preview.png" alt="Understanding Rhetoric Book Cover" onerror="this.src='https://raw.githubusercontent.com/yourusername/yourrepo/main/Cover-removebg-preview.png'; console.log('Trying GitHub raw URL for book')">`;
+                } else if (outcome.special === 'goldstar') {
+                    resultHTML += `<div>⭐ GOLDEN STAR ACHIEVEMENT! ⭐</div>
+                                  <img class="bonus-image" src="goldstar-removebg-preview.png" alt="Golden Star Achievement" onerror="this.src='https://raw.githubusercontent.com/yourusername/yourrepo/main/goldstar-removebg-preview.png'; console.log('Trying GitHub raw URL for goldstar')">`;
+                } else if (outcome.special === 'hawk') {
+                    resultHTML += `<div>🦅 HAWK VISION ACTIVATED! 🦅</div>
+                                  <img class="bonus-image" src="Hawk-removebg-preview.png" alt="Hawk Vision" onerror="this.src='https://raw.githubusercontent.com/yourusername/yourrepo/main/Hawk-removebg-preview.png'; console.log('Trying GitHub raw URL for hawk')">`;
+                } else if (outcome.special === 'form') {
+                    resultHTML += `<div>📄 DOCUMENT MASTERY UNLOCKED! 📄</div>
+                                  <img class="bonus-image" src="form-removebg-preview.png" alt="Document Mastery" onerror="this.src='https://raw.githubusercontent.com/yourusername/yourrepo/main/form-removebg-preview.png'; console.log('Trying GitHub raw URL for form')">`;
                 }
                 
                 createJackpotSound();
