@@ -649,13 +649,13 @@
             <div class="slot-machine">
                 <div class="slot-reels">
                     <div class="reel" id="reel1">
-                        <div class="reel-window" id="symbol1">⚔️</div>
+                        <div class="reel-window" id="symbol1">🦅</div>
                     </div>
                     <div class="reel" id="reel2">
-                        <div class="reel-window" id="symbol2">🛡️</div>
+                        <div class="reel-window" id="symbol2">📚</div>
                     </div>
                     <div class="reel" id="reel3">
-                        <div class="reel-window" id="symbol3">👑</div>
+                        <div class="reel-window" id="symbol3">✏️</div>
                     </div>
                 </div>
                 
@@ -669,14 +669,14 @@
             <div class="probabilities">
                 <h3>Winning Combinations & Rewards</h3>
                 <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
-                    🎰 Match symbols for epic rewards & images! 🎰
+                    🎰 Match symbols for epic rewards! 🎰
                 </p>
                 <ul class="prob-list">
                     <li><span>×0 (No Match)</span><span>65%</span></li>
-                    <li><span>×2 (Two Match) → 🦅 Hawk Vision</span><span>15%</span></li>
-                    <li><span>×3 (Special Combos) → ⭐ Gold Star / 📄 Document</span><span>10%</span></li>
-                    <li><span>×4 (Triple + Rare) → 📚 Book Cover</span><span>5%</span></li>
-                    <li><span>×5 (Legendary) → 👨‍💼 Professional Photo</span><span>5%</span></li>
+                    <li><span>×2 (Two Match) → 🦅 Milford Hawks</span><span>15%</span></li>
+                    <li><span>×3 (Special Combos) → 📚 Academic / ✏️ AP Lang</span><span>10%</span></li>
+                    <li><span>×4 (Triple + Rare) → 📚 Understanding Rhetoric</span><span>5%</span></li>
+                    <li><span>×5 (Legendary) → 👨‍🏫 Mr. Cunningham</span><span>5%</span></li>
                 </ul>
             </div>
         </div>
@@ -1016,7 +1016,7 @@
         }
 
         // Slot Machine Functions
-        const symbols = ['⚔️', '🛡️', '👑', '💎'];
+        const symbols = ['🦅', '📚', '✏️', '👨‍🏫'];  // Hawks, Book, Pencil, Teacher
         
         // Create weighted slot outcomes with same probabilities
         const slotOutcomes = [];
@@ -1050,26 +1050,26 @@
         
         // 3x bonus (10%) - 6 outcomes (special combinations)
         const specialCombos = [
-            { symbols: ['⚔️', '⚔️', '🛡️'], special: 'goldstar' },
-            { symbols: ['🛡️', '🛡️', '⚔️'], special: 'goldstar' },
-            { symbols: ['👑', '👑', '💎'], special: 'goldstar' },
-            { symbols: ['💎', '💎', '👑'], special: 'form' },
-            { symbols: ['⚔️', '👑', '⚔️'], special: 'form' },
-            { symbols: ['🛡️', '💎', '🛡️'], special: 'form' }
+            { symbols: ['🦅', '🦅', '📚'], special: 'teacher' },
+            { symbols: ['📚', '📚', '🦅'], special: 'teacher' },
+            { symbols: ['✏️', '✏️', '📚'], special: 'form' },
+            { symbols: ['📚', '📚', '✏️'], special: 'form' },
+            { symbols: ['🦅', '✏️', '🦅'], special: 'form' },
+            { symbols: ['👨‍🏫', '📚', '👨‍🏫'], special: 'teacher' }
         ];
         specialCombos.forEach(combo => {
             slotOutcomes.push({ symbols: combo.symbols, multiplier: 3, special: combo.special });
         });
         
-        // 4x bonus (5%) - 3 outcomes (including triple sword for book)
-        slotOutcomes.push({ symbols: ['⚔️', '⚔️', '⚔️'], multiplier: 4, special: 'book' });
-        slotOutcomes.push({ symbols: ['🛡️', '🛡️', '🛡️'], multiplier: 4, special: 'book' });
-        slotOutcomes.push({ symbols: ['💎', '👑', '💎'], multiplier: 4, special: 'book' });
+        // 4x bonus (5%) - 3 outcomes (including triple book for Understanding Rhetoric)
+        slotOutcomes.push({ symbols: ['📚', '📚', '📚'], multiplier: 4, special: 'book' });
+        slotOutcomes.push({ symbols: ['🦅', '🦅', '🦅'], multiplier: 4, special: 'book' });
+        slotOutcomes.push({ symbols: ['✏️', '📚', '✏️'], multiplier: 4, special: 'book' });
         
-        // 5x bonus (5%) - 3 outcomes (including triple crown for profile)
-        slotOutcomes.push({ symbols: ['👑', '👑', '👑'], multiplier: 5, special: 'profile' });
-        slotOutcomes.push({ symbols: ['💎', '💎', '💎'], multiplier: 5, special: 'profile' });
-        slotOutcomes.push({ symbols: ['⚔️', '🛡️', '👑'], multiplier: 5, special: 'profile' });
+        // 5x bonus (5%) - 3 outcomes (including triple teacher for Mr. Cunningham)
+        slotOutcomes.push({ symbols: ['👨‍🏫', '👨‍🏫', '👨‍🏫'], multiplier: 5, special: 'profile' });
+        slotOutcomes.push({ symbols: ['✏️', '✏️', '✏️'], multiplier: 5, special: 'profile' });
+        slotOutcomes.push({ symbols: ['🦅', '📚', '👨‍🏫'], multiplier: 5, special: 'profile' });
 
         function spinSlots() {
             const reels = document.querySelectorAll('.reel');
@@ -1136,22 +1136,22 @@
             if (outcome.multiplier > 0) {
                 let resultHTML = `<div class="jackpot-text jackpot-animate">🎰 <span class="multiplier">×${outcome.multiplier} BONUS!</span> 🎰</div>`;
                 
-                // Show special images for different outcomes
+                // Show special images using school-specific themes
                 if (outcome.special === 'profile') {
-                    resultHTML += `<div>👨‍💼 PROFESSIONAL EXCELLENCE ACHIEVED! 👨‍💼</div>
-                                  <img class="bonus-image" src="Profile-removebg-preview.png" alt="Professional Headshot" onerror="this.src='https://raw.githubusercontent.com/yourusername/yourrepo/main/Profile-removebg-preview.png'; console.log('Trying GitHub raw URL for profile')">`;
+                    resultHTML += `<div>👨‍🏫 MR. CUNNINGHAM EXCELLENCE! 👨‍🏫</div>
+                                  <div style="font-size: 8rem; margin: 1rem 0; text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);">👨‍🏫</div>`;
                 } else if (outcome.special === 'book') {
-                    resultHTML += `<div>📚 UNDERSTANDING RHETORIC REVEALED! 📚</div>
-                                  <img class="bonus-image" src="Cover-removebg-preview.png" alt="Understanding Rhetoric Book Cover" onerror="this.src='https://raw.githubusercontent.com/yourusername/yourrepo/main/Cover-removebg-preview.png'; console.log('Trying GitHub raw URL for book')">`;
-                } else if (outcome.special === 'goldstar') {
-                    resultHTML += `<div>⭐ GOLDEN STAR ACHIEVEMENT! ⭐</div>
-                                  <img class="bonus-image" src="goldstar-removebg-preview.png" alt="Golden Star Achievement" onerror="this.src='https://raw.githubusercontent.com/yourusername/yourrepo/main/goldstar-removebg-preview.png'; console.log('Trying GitHub raw URL for goldstar')">`;
+                    resultHTML += `<div>📚 UNDERSTANDING RHETORIC MASTERY! 📚</div>
+                                  <div style="font-size: 8rem; margin: 1rem 0; text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);">📚</div>`;
+                } else if (outcome.special === 'teacher') {
+                    resultHTML += `<div>📚 ACADEMIC EXCELLENCE! 📚</div>
+                                  <div style="font-size: 8rem; margin: 1rem 0; text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);">📚</div>`;
                 } else if (outcome.special === 'hawk') {
-                    resultHTML += `<div>🦅 HAWK VISION ACTIVATED! 🦅</div>
-                                  <img class="bonus-image" src="Hawk-removebg-preview.png" alt="Hawk Vision" onerror="this.src='https://raw.githubusercontent.com/yourusername/yourrepo/main/Hawk-removebg-preview.png'; console.log('Trying GitHub raw URL for hawk')">`;
+                    resultHTML += `<div>🦅 MILFORD HAWKS PRIDE! 🦅</div>
+                                  <div style="font-size: 8rem; margin: 1rem 0; text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);">🦅</div>`;
                 } else if (outcome.special === 'form') {
-                    resultHTML += `<div>📄 DOCUMENT MASTERY UNLOCKED! 📄</div>
-                                  <img class="bonus-image" src="form-removebg-preview.png" alt="Document Mastery" onerror="this.src='https://raw.githubusercontent.com/yourusername/yourrepo/main/form-removebg-preview.png'; console.log('Trying GitHub raw URL for form')">`;
+                    resultHTML += `<div>✏️ AP LANG MASTERY UNLOCKED! ✏️</div>
+                                  <div style="font-size: 8rem; margin: 1rem 0; text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);">✏️</div>`;
                 }
                 
                 createJackpotSound();
