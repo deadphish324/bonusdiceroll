@@ -97,8 +97,8 @@
         /* Landing Page Styles */
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
             width: 100%;
             margin-top: 2rem;
         }
@@ -107,7 +107,7 @@
             background: rgba(30, 30, 60, 0.8);
             border: 3px solid #d4af37;
             border-radius: 20px;
-            padding: 2.5rem;
+            padding: 2rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.4s ease;
@@ -158,7 +158,105 @@
             opacity: 0.9;
         }
 
-        /* Dice Game Styles (keeping existing) */
+        /* Shared Styles */
+        .game-button {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            color: #e8d5b7;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 1rem;
+        }
+
+        .game-button:hover {
+            background: linear-gradient(135deg, #A0522D 0%, #CD853F 50%, #A0522D 100%);
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .game-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 2rem 0;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .result.animate {
+            animation: resultGlow 1s ease-in-out;
+        }
+
+        @keyframes resultGlow {
+            0% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .multiplier {
+            color: #32CD32;
+            text-shadow: 0 0 10px rgba(50, 205, 50, 0.5);
+        }
+
+        .probabilities {
+            background: rgba(30, 30, 60, 0.7);
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-top: 2rem;
+        }
+
+        .probabilities h3 {
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+
+        .prob-list {
+            list-style: none;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .prob-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .prob-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Dice Game Styles */
         .dice-container {
             position: relative;
             margin: 2rem auto;
@@ -417,15 +515,6 @@
             margin-bottom: 1rem;
         }
 
-        .bonus-image {
-            max-width: 300px;
-            max-height: 300px;
-            border: 3px solid #d4af37;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            margin-top: 1rem;
-        }
-
         .jackpot-animate {
             animation: jackpotGlow 2s ease-in-out;
         }
@@ -446,63 +535,6 @@
                 transform: scale(1); 
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
             }
-        }
-
-        .multiplier {
-            color: #32CD32;
-            text-shadow: 0 0 10px rgba(50, 205, 50, 0.5);
-        }
-
-        /* Shared Styles */
-        .game-button {
-            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
-            border: 2px solid #d4af37;
-            border-radius: 8px;
-            color: #e8d5b7;
-            font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            padding: 12px 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2rem;
-        }
-
-        .game-button:hover {
-            background: linear-gradient(135deg, #A0522D 0%, #CD853F 50%, #A0522D 100%);
-            box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                0 0 20px rgba(212, 175, 55, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .result {
-            font-size: 1.8rem;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 2rem;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #d4af37;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-        }
-
-        .result.animate {
-            animation: resultGlow 1s ease-in-out;
-        }
-
-        @keyframes resultGlow {
-            0% { opacity: 0; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.1); }
-            100% { opacity: 1; transform: scale(1); }
         }
 
         .particles {
@@ -555,196 +587,13 @@
             }
         }
 
-        /* Coin Flip Game Styles */
-        .coin-game {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        .flip-counter {
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .flip-counter h3, .flip-counter h4 {
-            color: #d4af37;
-            font-family: 'Cinzel', serif;
-            margin: 0.5rem 0;
-        }
-
-        .coin-container {
-            margin: 2rem 0;
-        }
-
-        .coin {
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #d4af37 100%);
-            border-radius: 50%;
-            border: 4px solid #8B4513;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            box-shadow: 
-                0 0 30px rgba(212, 175, 55, 0.4),
-                inset 0 0 20px rgba(255, 255, 255, 0.2);
-            position: relative;
-            transition: all 0.5s ease;
-        }
-
-        .coin.flipping {
-            animation: coinFlip 2s ease-in-out;
-        }
-
+        /* Coin Flip Animation */
         @keyframes coinFlip {
             0% { transform: rotateY(0deg) scale(1); }
             25% { transform: rotateY(450deg) scale(1.2); }
             50% { transform: rotateY(900deg) scale(1); }
             75% { transform: rotateY(1350deg) scale(1.2); }
             100% { transform: rotateY(1800deg) scale(1); }
-        }
-
-        .coin-choices {
-            display: flex;
-            gap: 3rem;
-            margin: 2rem 0;
-        }
-
-        .choice-button {
-            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
-            border: 3px solid #d4af37;
-            border-radius: 15px;
-            color: #e8d5b7;
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            padding: 20px 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            line-height: 1.4;
-            min-width: 180px;
-        }
-
-        .choice-button:hover {
-            background: linear-gradient(135deg, #A0522D 0%, #CD853F 50%, #A0522D 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        .choice-button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Treasure Chest Game Styles */
-        .treasure-game {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        .treasure-instruction {
-            font-size: 1.3rem;
-            color: #d4af37;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .treasure-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin: 2rem 0;
-            max-width: 600px;
-        }
-
-        .treasure-chest {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
-            border: 3px solid #d4af37;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.3),
-                inset 0 2px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .treasure-chest:hover {
-            transform: translateY(-5px);
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.4),
-                inset 0 2px 0 rgba(255, 255, 255, 0.3),
-                0 0 25px rgba(212, 175, 55, 0.4);
-        }
-
-        .treasure-chest.opened {
-            background: linear-gradient(135deg, #4a5d23 0%, #6b8e23 50%, #4a5d23 100%);
-            cursor: default;
-            transform: scale(1.1);
-        }
-
-        .treasure-chest.revealed {
-            background: linear-gradient(135deg, #444 0%, #666 50%, #444 100%);
-            opacity: 0.6;
-            cursor: default;
-        }
-
-        .treasure-chest.opening {
-            animation: chestOpen 1s ease-out;
-        }
-
-        @keyframes chestOpen {
-            0% { transform: scale(1) rotateY(0deg); }
-            50% { transform: scale(1.2) rotateY(180deg); }
-            100% { transform: scale(1.1) rotateY(360deg); }
-        }
-
-        .probabilities {
-            background: rgba(30, 30, 60, 0.7);
-            border: 1px solid #d4af37;
-            border-radius: 10px;
-            padding: 1.5rem;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            margin-top: 2rem;
-        }
-
-        .probabilities h3 {
-            font-family: 'Cinzel', serif;
-            color: #d4af37;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-size: 1.3rem;
-        }
-
-        .prob-list {
-            list-style: none;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .prob-list li {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.3rem 0;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .prob-list li:last-child {
-            border-bottom: none;
         }
     </style>
 </head>
@@ -758,79 +607,7 @@
                     <span class="game-icon">🎲</span>
                     <h2 class="game-title">Dice Roll Multiplier</h2>
                     <p class="game-description">Roll the mystical d20 dice for bonus multipliers up to ×5!</p>
-                <!-- Coin Flip Challenge Page -->
-        <div class="page" id="coinflip">
-            <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
-            <h1 class="title">Coin Flip Challenge</h1>
-            
-            <div class="flip-counter">
-                <h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin: 0.5rem 0;">Flip <span id="currentFlip">1</span> of 5</h3>
-                <h4 style="color: #d4af37; font-family: 'Cinzel', serif; margin: 0.5rem 0;">Correct: <span id="correctCount">0</span></h4>
-            </div>
-            
-            <div style="margin: 2rem 0;">
-                <div style="width: 150px; height: 150px; background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #d4af37 100%); border-radius: 50%; border: 4px solid #8B4513; display: flex; align-items: center; justify-content: center; font-size: 4rem; margin: 0 auto; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); transition: all 0.5s ease;" id="coin">
-                    <span id="coinDisplay">🪙</span>
                 </div>
-            </div>
-            
-            <div style="display: flex; gap: 3rem; justify-content: center; margin: 2rem 0;">
-                <button class="game-button" id="headsButton" onclick="makeGuess('heads')" style="min-width: 180px;">
-                    👨‍🏫<br>Mr. Cunningham<br>(Heads)
-                </button>
-                <button class="game-button" id="tailsButton" onclick="makeGuess('tails')" style="min-width: 180px;">
-                    📚<br>Understanding Rhetoric<br>(Tails)
-                </button>
-            </div>
-            
-            <div class="result" id="coinResult"></div>
-            
-            <button class="game-button" id="newCoinGame" onclick="startCoinGame()" style="display: none;">New Challenge</button>
-
-            <div class="probabilities">
-                <h3>Streak Bonus System</h3>
-                <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
-                    🪙 Build winning streaks for bigger bonuses! 🪙
-                </p>
-                <ul class="prob-list">
-                    <li><span>5/5 Correct → ×5 Bonus</span><span>~5%</span></li>
-                    <li><span>4/5 Correct → ×4 Bonus</span><span>~8%</span></li>
-                    <li><span>3/5 Correct → ×3 or ×2 Bonus</span><span>~25%</span></li>
-                    <li><span>2/5 or Less → No Bonus</span><span>~62%</span></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Treasure Chest Challenge Page -->
-        <div class="page" id="treasure">
-            <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
-            <h1 class="title">Treasure Chest Challenge</h1>
-            
-            <p style="font-size: 1.3rem; color: #d4af37; margin-bottom: 2rem; text-align: center;">Choose one chest to reveal your bonus!</p>
-            
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 2rem auto; max-width: 600px;" id="treasureGrid">
-                <!-- Chests will be dynamically generated -->
-            </div>
-            
-            <div class="result" id="treasureResult"></div>
-            
-            <button class="game-button" id="newTreasureGame" onclick="startTreasureGame()" style="display: none;">New Treasure Hunt</button>
-
-            <div class="probabilities">
-                <h3>Treasure Rewards</h3>
-                <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
-                    📦 Choose wisely for hidden treasures! 📦
-                </p>
-                <ul class="prob-list">
-                    <li><span>×0 (Empty Chest)</span><span>65%</span></li>
-                    <li><span>×2 → 🦅 Milford Hawks</span><span>15%</span></li>
-                    <li><span>×3 → ✏️ AP Lang</span><span>10%</span></li>
-                    <li><span>×4 → 📚 Understanding Rhetoric</span><span>5%</span></li>
-                    <li><span>×5 → 👨‍🏫 Mr. Cunningham</span><span>5%</span></li>
-                </ul>
-            </div>
-        </div>
-    </div>
                 <div class="game-card" onclick="showPage('slots')">
                     <span class="game-icon">🎰</span>
                     <h2 class="game-title">Slot Machine Multiplier</h2>
@@ -850,35 +627,35 @@
         </div>
 
         <!-- Dice Game Page -->
-<div class="page" id="dice">
-    <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
-    <h1 class="title">Dice Roll Multiplier</h1>
-    
-    <div class="dice-container">
-        <div class="dice" id="dice">
-            <span id="diceNumber">?</span>
+        <div class="page" id="dice">
+            <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
+            <h1 class="title">Dice Roll Multiplier</h1>
+            
+            <div class="dice-container">
+                <div class="dice" id="dice">
+                    <span id="diceNumber">?</span>
+                </div>
+                <div class="particles" id="particles"></div>
+            </div>
+            
+            <button class="game-button" id="rollButton" onclick="rollDice()">Let's Roll the Dice!</button>
+            
+            <div class="result" id="result"></div>
+            
+            <div class="probabilities">
+                <h3>Bonus Multipliers Available</h3>
+                <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
+                    🎲 You can get up to ×5 bonus! 🎲
+                </p>
+                <ul class="prob-list">
+                    <li><span>×0 (No Bonus)</span><span>13/20 (65%)</span></li>
+                    <li><span>×2 Multiplier</span><span>3/20 (15%)</span></li>
+                    <li><span>×3 Multiplier</span><span>2/20 (10%)</span></li>
+                    <li><span>×4 Multiplier</span><span>1/20 (5%)</span></li>
+                    <li><span>×5 Multiplier</span><span>1/20 (5%)</span></li>
+                </ul>
+            </div>
         </div>
-        <div class="particles" id="particles"></div>
-    </div>
-    
-    <button class="game-button" id="rollButton" onclick="rollDice()">Let's Roll the Dice!</button>
-    
-    <div class="result" id="result"></div>
-    
-    <div class="probabilities">
-        <h3>Bonus Multipliers Available</h3>
-        <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
-            🎲 You can get up to ×5 bonus! 🎲
-        </p>
-        <ul class="prob-list">
-            <li><span>×0 (No Bonus)</span><span>13/20 (65%)</span></li>
-            <li><span>×2 Multiplier</span><span>3/20 (15%)</span></li>
-            <li><span>×3 Multiplier</span><span>2/20 (10%)</span></li>
-            <li><span>×4 Multiplier</span><span>1/20 (5%)</span></li>
-            <li><span>×5 Multiplier</span><span>1/20 (5%)</span></li>
-        </ul>
-    </div>
-</div>
 
         <!-- Slot Machine Page -->
         <div class="page" id="slots">
@@ -916,6 +693,79 @@
                     <li><span>×3 (Special Combos) → 📚 Academic / ✏️ AP Lang</span><span>10%</span></li>
                     <li><span>×4 (Triple + Rare) → 📚 Understanding Rhetoric</span><span>5%</span></li>
                     <li><span>×5 (Legendary) → 👨‍🏫 Mr. Cunningham</span><span>5%</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Coin Flip Challenge Page -->
+        <div class="page" id="coinflip">
+            <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
+            <h1 class="title">Coin Flip Challenge</h1>
+            
+            <div style="margin-bottom: 2rem;">
+                <h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin: 0.5rem 0;">Flip <span id="currentFlip">1</span> of 5</h3>
+                <h4 style="color: #d4af37; font-family: 'Cinzel', serif; margin: 0.5rem 0;">Correct: <span id="correctCount">0</span></h4>
+            </div>
+            
+            <div style="margin: 2rem 0;">
+                <div id="coin" style="width: 150px; height: 150px; background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #d4af37 100%); border-radius: 50%; border: 4px solid #8B4513; display: flex; align-items: center; justify-content: center; font-size: 4rem; margin: 0 auto; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); transition: all 0.5s ease;">
+                    <span id="coinDisplay">🪙</span>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 3rem; justify-content: center; margin: 2rem 0; flex-wrap: wrap;">
+                <button class="game-button" id="headsButton" onclick="makeGuess('heads')" style="min-width: 180px;">
+                    👨‍🏫<br>Mr. Cunningham<br>(Heads)
+                </button>
+                <button class="game-button" id="tailsButton" onclick="makeGuess('tails')" style="min-width: 180px;">
+                    📚<br>Understanding Rhetoric<br>(Tails)
+                </button>
+            </div>
+            
+            <div class="result" id="coinResult"></div>
+            
+            <button class="game-button" id="newCoinGame" onclick="startCoinGame()" style="display: none;">New Challenge</button>
+
+            <div class="probabilities">
+                <h3>Streak Bonus System</h3>
+                <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
+                    🪙 Build winning streaks for bigger bonuses! 🪙
+                </p>
+                <ul class="prob-list">
+                    <li><span>5/5 Correct → ×5 Bonus</span><span>~5%</span></li>
+                    <li><span>4/5 Correct → ×4 Bonus</span><span>~8%</span></li>
+                    <li><span>3/5 Correct → ×3 or ×2 Bonus</span><span>~25%</span></li>
+                    <li><span>2/5 or Less → No Bonus</span><span>~62%</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Treasure Chest Challenge Page -->
+        <div class="page" id="treasure">
+            <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
+            <h1 class="title">Treasure Chest Challenge</h1>
+            
+            <p style="font-size: 1.3rem; color: #d4af37; margin-bottom: 2rem; text-align: center;">Choose one chest to reveal your bonus!</p>
+            
+            <div id="treasureGrid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 2rem auto; max-width: 600px;">
+                <!-- Chests will be dynamically generated -->
+            </div>
+            
+            <div class="result" id="treasureResult"></div>
+            
+            <button class="game-button" id="newTreasureGame" onclick="startTreasureGame()" style="display: none;">New Treasure Hunt</button>
+
+            <div class="probabilities">
+                <h3>Treasure Rewards</h3>
+                <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
+                    📦 Choose wisely for hidden treasures! 📦
+                </p>
+                <ul class="prob-list">
+                    <li><span>×0 (Empty Chest)</span><span>65%</span></li>
+                    <li><span>×2 → 🦅 Milford Hawks</span><span>15%</span></li>
+                    <li><span>×3 → ✏️ AP Lang</span><span>10%</span></li>
+                    <li><span>×4 → 📚 Understanding Rhetoric</span><span>5%</span></li>
+                    <li><span>×5 → 👨‍🏫 Mr. Cunningham</span><span>5%</span></li>
                 </ul>
             </div>
         </div>
@@ -1103,7 +953,6 @@
         function createSlotSpinSound() {
             if (!audioContext) return;
             
-            // Create mechanical spinning sound
             for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
                     try {
@@ -1131,7 +980,6 @@
             try {
                 if (!audioContext) return;
                 
-                // Victory fanfare
                 const frequencies = [400, 500, 600, 800];
                 frequencies.forEach((freq, i) => {
                     setTimeout(() => {
@@ -1166,6 +1014,7 @@
 
         function createParticles() {
             const particles = document.getElementById('particles');
+            if (!particles) return;
             particles.innerHTML = '';
             
             for (let i = 0; i < 20; i++) {
@@ -1183,6 +1032,8 @@
             const diceNumber = document.getElementById('diceNumber');
             const result = document.getElementById('result');
             const rollButton = document.getElementById('rollButton');
+
+            if (!dice || !diceNumber || !result || !rollButton) return;
 
             initAudio();
             rollButton.disabled = true;
@@ -1262,9 +1113,7 @@
         }
 
         // Slot Machine Functions
-        const symbols = ['🦅', '📚', '✏️', '👨‍🏫'];  // Hawks, Book, Pencil, Teacher
-        
-        // Create weighted slot outcomes with same probabilities
+        const symbols = ['🦅', '📚', '✏️', '👨‍🏫'];
         const slotOutcomes = [];
         
         // No bonus (65%) - 42 outcomes
@@ -1274,11 +1123,11 @@
             do {
                 s2 = symbols[Math.floor(Math.random() * 4)];
                 s3 = symbols[Math.floor(Math.random() * 4)];
-            } while (s1 === s2 || s2 === s3 || s1 === s3); // Ensure no matches
+            } while (s1 === s2 || s2 === s3 || s1 === s3);
             slotOutcomes.push({ symbols: [s1, s2, s3], multiplier: 0 });
         }
         
-        // 2x bonus (15%) - 10 outcomes (two matching)
+        // 2x bonus (15%) - 10 outcomes
         for (let i = 0; i < 10; i++) {
             const match = symbols[Math.floor(Math.random() * 4)];
             let different;
@@ -1294,7 +1143,7 @@
             slotOutcomes.push({ symbols: arrangement, multiplier: 2, special: 'hawk' });
         }
         
-        // 3x bonus (10%) - 6 outcomes (special combinations)
+        // 3x bonus (10%) - 6 outcomes
         const specialCombos = [
             { symbols: ['🦅', '🦅', '📚'], special: 'teacher' },
             { symbols: ['📚', '📚', '🦅'], special: 'teacher' },
@@ -1307,12 +1156,12 @@
             slotOutcomes.push({ symbols: combo.symbols, multiplier: 3, special: combo.special });
         });
         
-        // 4x bonus (5%) - 3 outcomes (including triple book for Understanding Rhetoric)
+        // 4x bonus (5%) - 3 outcomes
         slotOutcomes.push({ symbols: ['📚', '📚', '📚'], multiplier: 4, special: 'book' });
         slotOutcomes.push({ symbols: ['🦅', '🦅', '🦅'], multiplier: 4, special: 'book' });
         slotOutcomes.push({ symbols: ['✏️', '📚', '✏️'], multiplier: 4, special: 'book' });
         
-        // 5x bonus (5%) - 3 outcomes (including triple teacher for Mr. Cunningham)
+        // 5x bonus (5%) - 3 outcomes
         slotOutcomes.push({ symbols: ['👨‍🏫', '👨‍🏫', '👨‍🏫'], multiplier: 5, special: 'profile' });
         slotOutcomes.push({ symbols: ['✏️', '✏️', '✏️'], multiplier: 5, special: 'profile' });
         slotOutcomes.push({ symbols: ['🦅', '📚', '👨‍🏫'], multiplier: 5, special: 'profile' });
@@ -1321,20 +1170,18 @@
             const reels = document.querySelectorAll('.reel');
             const slotButton = document.getElementById('slotButton');
             const jackpotDisplay = document.getElementById('jackpotDisplay');
-            const jackpotText = document.getElementById('jackpotText');
+            
+            if (!reels.length || !slotButton || !jackpotDisplay) return;
             
             initAudio();
             slotButton.disabled = true;
             
-            // Clear previous result
             jackpotDisplay.innerHTML = '<div class="jackpot-text" id="jackpotText"></div>';
             
-            // Start spinning animation
             reels.forEach(reel => reel.classList.add('spinning'));
             
             createSlotSpinSound();
             
-            // Simulate spinning with random symbols
             let spinCount = 0;
             const spinInterval = setInterval(() => {
                 document.getElementById('symbol1').textContent = symbols[Math.floor(Math.random() * 4)];
@@ -1345,10 +1192,8 @@
                 if (spinCount > 20) {
                     clearInterval(spinInterval);
                     
-                    // Get final result
                     const outcome = slotOutcomes[Math.floor(Math.random() * slotOutcomes.length)];
                     
-                    // Stop one reel at a time for dramatic effect
                     setTimeout(() => {
                         document.getElementById('reel1').classList.remove('spinning');
                         document.getElementById('symbol1').textContent = outcome.symbols[0];
@@ -1366,7 +1211,6 @@
                         document.getElementById('symbol3').textContent = outcome.symbols[2];
                         createImpactSound(0.2);
                         
-                        // Show result
                         setTimeout(() => {
                             showSlotResult(outcome);
                             slotButton.disabled = false;
@@ -1382,7 +1226,6 @@
             if (outcome.multiplier > 0) {
                 let resultHTML = `<div class="jackpot-text jackpot-animate">🎰 <span class="multiplier">×${outcome.multiplier} BONUS!</span> 🎰</div>`;
                 
-                // Show special images using school-specific themes
                 if (outcome.special === 'profile') {
                     resultHTML += `<div>👨‍🏫 MR. CUNNINGHAM EXCELLENCE! 👨‍🏫</div>
                                   <div style="font-size: 8rem; margin: 1rem 0; text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);">👨‍🏫</div>`;
@@ -1412,90 +1255,93 @@
         let currentFlip = 1;
         let correctGuesses = 0;
         let coinGameActive = false;
-        let playerGuess = null;
 
-        // Treasure Chest Game Variables
-        let treasureChests = [];
-        let treasureGameActive = false;
-
-        // Coin Flip Game Functions
         function startCoinGame() {
             currentFlip = 1;
             correctGuesses = 0;
             coinGameActive = true;
-            playerGuess = null;
             
-            document.getElementById('currentFlip').textContent = currentFlip;
-            document.getElementById('correctCount').textContent = correctGuesses;
-            document.getElementById('coinResult').innerHTML = '';
-            document.getElementById('newCoinGame').style.display = 'none';
+            const currentFlipEl = document.getElementById('currentFlip');
+            const correctCountEl = document.getElementById('correctCount');
+            const coinResultEl = document.getElementById('coinResult');
+            const newCoinGameEl = document.getElementById('newCoinGame');
+            const headsButtonEl = document.getElementById('headsButton');
+            const tailsButtonEl = document.getElementById('tailsButton');
+            const coinDisplayEl = document.getElementById('coinDisplay');
+            const coinEl = document.getElementById('coin');
             
-            // Enable choice buttons
-            document.getElementById('headsButton').disabled = false;
-            document.getElementById('tailsButton').disabled = false;
+            if (currentFlipEl) currentFlipEl.textContent = currentFlip;
+            if (correctCountEl) correctCountEl.textContent = correctGuesses;
+            if (coinResultEl) coinResultEl.innerHTML = '';
+            if (newCoinGameEl) newCoinGameEl.style.display = 'none';
             
-            // Reset coin display
-            document.getElementById('coinDisplay').textContent = '🪙';
-            document.getElementById('coin').classList.remove('flipping');
+            if (headsButtonEl) headsButtonEl.disabled = false;
+            if (tailsButtonEl) tailsButtonEl.disabled = false;
+            
+            if (coinDisplayEl) coinDisplayEl.textContent = '🪙';
+            if (coinEl) coinEl.style.animation = 'none';
         }
 
         function makeGuess(guess) {
             if (!coinGameActive) return;
             
-            playerGuess = guess;
+            const headsButtonEl = document.getElementById('headsButton');
+            const tailsButtonEl = document.getElementById('tailsButton');
+            const coinEl = document.getElementById('coin');
+            const coinDisplayEl = document.getElementById('coinDisplay');
+            const coinResultEl = document.getElementById('coinResult');
+            const correctCountEl = document.getElementById('correctCount');
+            const currentFlipEl = document.getElementById('currentFlip');
             
-            // Disable buttons during flip
-            document.getElementById('headsButton').disabled = true;
-            document.getElementById('tailsButton').disabled = true;
+            if (headsButtonEl) headsButtonEl.disabled = true;
+            if (tailsButtonEl) tailsButtonEl.disabled = true;
             
-            // Start coin flip animation with inline styles
-            const coin = document.getElementById('coin');
-            coin.style.animation = 'none'; // Reset
-            setTimeout(() => {
-                coin.style.animation = 'coinFlip 2s ease-in-out';
-            }, 10);
+            if (coinEl) {
+                coinEl.style.animation = 'none';
+                setTimeout(() => {
+                    coinEl.style.animation = 'coinFlip 2s ease-in-out';
+                }, 10);
+            }
             
-            createDiceRollSound(); // Reuse existing sound
+            createDiceRollSound();
             
-            // Determine result after animation
             setTimeout(() => {
                 const result = Math.random() < 0.5 ? 'heads' : 'tails';
                 const isCorrect = guess === result;
                 
-                // Show result
-                document.getElementById('coinDisplay').textContent = result === 'heads' ? '👨‍🏫' : '📚';
+                if (coinDisplayEl) {
+                    coinDisplayEl.textContent = result === 'heads' ? '👨‍🏫' : '📚';
+                }
                 
                 if (isCorrect) {
                     correctGuesses++;
-                    document.getElementById('correctCount').textContent = correctGuesses;
+                    if (correctCountEl) correctCountEl.textContent = correctGuesses;
                     createRevealSound(true);
                 } else {
                     createRevealSound(false);
                 }
                 
-                // Show result message
                 const resultText = isCorrect ? 
                     `Correct! It was ${result === 'heads' ? 'Mr. Cunningham (Heads)' : 'Understanding Rhetoric (Tails)'}!` :
                     `Wrong! It was ${result === 'heads' ? 'Mr. Cunningham (Heads)' : 'Understanding Rhetoric (Tails)'}`;
                 
-                document.getElementById('coinResult').innerHTML = `<div style="color: ${isCorrect ? '#32CD32' : '#ff6b6b'}; margin: 1rem 0; font-size: 1.2rem;">${resultText}</div>`;
+                if (coinResultEl) {
+                    coinResultEl.innerHTML = `<div style="color: ${isCorrect ? '#32CD32' : '#ff6b6b'}; margin: 1rem 0; font-size: 1.2rem;">${resultText}</div>`;
+                }
                 
                 currentFlip++;
                 
                 if (currentFlip <= 5) {
-                    // Continue to next flip
                     setTimeout(() => {
-                        document.getElementById('currentFlip').textContent = currentFlip;
-                        document.getElementById('coinResult').innerHTML = '';
-                        document.getElementById('coinDisplay').textContent = '🪙';
-                        coin.style.animation = 'none';
+                        if (currentFlipEl) currentFlipEl.textContent = currentFlip;
+                        if (coinResultEl) coinResultEl.innerHTML = '';
+                        if (coinDisplayEl) coinDisplayEl.textContent = '🪙';
+                        if (coinEl) coinEl.style.animation = 'none';
                         
-                        // Re-enable buttons
-                        document.getElementById('headsButton').disabled = false;
-                        document.getElementById('tailsButton').disabled = false;
+                        if (headsButtonEl) headsButtonEl.disabled = false;
+                        if (tailsButtonEl) tailsButtonEl.disabled = false;
                     }, 2000);
                 } else {
-                    // Game over, show final result
                     finishCoinGame();
                 }
             }, 2000);
@@ -1504,7 +1350,6 @@
         function finishCoinGame() {
             coinGameActive = false;
             
-            // Calculate bonus based on correct guesses
             let multiplier = 0;
             let message = '';
             
@@ -1512,26 +1357,28 @@
                 multiplier = 5;
                 message = '🎉 PERFECT STREAK! ×5 BONUS! 🎉';
             } else if (correctGuesses === 4) {
-                // 60% chance of ×4, 40% chance of ×3
                 multiplier = Math.random() < 0.6 ? 4 : 3;
                 message = `Great job! ×${multiplier} BONUS!`;
             } else if (correctGuesses === 3) {
-                // 40% chance of ×3, 60% chance of ×2
                 multiplier = Math.random() < 0.4 ? 3 : 2;
                 message = `Nice try! ×${multiplier} BONUS!`;
             } else {
-                // 2 or fewer correct = no bonus
                 multiplier = 0;
                 message = 'No bonus this time. Better luck next time!';
             }
             
             setTimeout(() => {
-                document.getElementById('coinResult').innerHTML = `
-                    <div class="result animate" style="font-size: 1.5rem; margin: 2rem 0;">
-                        Final Score: ${correctGuesses}/5 Correct<br>
-                        ${message}
-                    </div>
-                `;
+                const coinResultEl = document.getElementById('coinResult');
+                const newCoinGameEl = document.getElementById('newCoinGame');
+                
+                if (coinResultEl) {
+                    coinResultEl.innerHTML = `
+                        <div class="result animate" style="font-size: 1.5rem; margin: 2rem 0;">
+                            Final Score: ${correctGuesses}/5 Correct<br>
+                            ${message}
+                        </div>
+                    `;
+                }
                 
                 if (multiplier > 0) {
                     createJackpotSound();
@@ -1539,32 +1386,33 @@
                     createRevealSound(false);
                 }
                 
-                document.getElementById('newCoinGame').style.display = 'block';
+                if (newCoinGameEl) newCoinGameEl.style.display = 'block';
             }, 1000);
         }
 
-        // Treasure Chest Game Functions
+        // Treasure Chest Game Variables
+        let treasureChests = [];
+        let treasureGameActive = false;
+
         function startTreasureGame() {
             treasureGameActive = true;
             treasureChests = [];
             
-            // Pre-determine the outcome based on target probabilities
             const rand = Math.random() * 100;
             let selectedReward;
             
             if (rand < 65) {
                 selectedReward = { multiplier: 0, symbol: '💨', message: 'Empty chest! No bonus this time.' };
-            } else if (rand < 80) { // 15% chance
+            } else if (rand < 80) {
                 selectedReward = { multiplier: 2, symbol: '🦅', message: '🦅 MILFORD HAWKS PRIDE! ×2 BONUS!' };
-            } else if (rand < 90) { // 10% chance
+            } else if (rand < 90) {
                 selectedReward = { multiplier: 3, symbol: '✏️', message: '✏️ AP LANG MASTERY! ×3 BONUS!' };
-            } else if (rand < 95) { // 5% chance
+            } else if (rand < 95) {
                 selectedReward = { multiplier: 4, symbol: '📚', message: '📚 UNDERSTANDING RHETORIC MASTERY! ×4 BONUS!' };
-            } else { // 5% chance
+            } else {
                 selectedReward = { multiplier: 5, symbol: '👨‍🏫', message: '👨‍🏫 MR. CUNNINGHAM EXCELLENCE! ×5 BONUS!' };
             }
             
-            // Create 6 treasure chests with random contents (but one will have the selected reward)
             const chestContents = [
                 { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
                 { multiplier: 0, symbol: '💨', message: 'Empty chest!' },
@@ -1574,7 +1422,6 @@
                 selectedReward
             ];
             
-            // Shuffle the chests
             for (let i = chestContents.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [chestContents[i], chestContents[j]] = [chestContents[j], chestContents[i]];
@@ -1582,92 +1429,105 @@
             
             treasureChests = chestContents;
             
-            // Find which chest has our pre-selected reward
             const selectedChestIndex = treasureChests.findIndex(chest => 
                 chest.multiplier === selectedReward.multiplier && 
                 chest.symbol === selectedReward.symbol && 
                 chest.message === selectedReward.message
             );
             
-            // Generate chest HTML with inline styles
             const treasureGrid = document.getElementById('treasureGrid');
-            treasureGrid.innerHTML = '';
-            
-            for (let i = 0; i < 6; i++) {
-                const chest = document.createElement('div');
-                chest.innerHTML = '📦';
-                chest.style.cssText = `
-                    width: 120px; 
-                    height: 120px; 
-                    background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%); 
-                    border: 3px solid #d4af37; 
-                    border-radius: 15px; 
-                    display: flex; 
-                    align-items: center; 
-                    justify-content: center; 
-                    font-size: 3rem; 
-                    cursor: pointer; 
-                    transition: all 0.3s ease; 
-                    position: relative; 
-                    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.2);
-                `;
+            if (treasureGrid) {
+                treasureGrid.innerHTML = '';
                 
-                chest.onmouseover = function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.3), 0 0 25px rgba(212, 175, 55, 0.4)';
-                };
-                
-                chest.onmouseout = function() {
-                    if (!this.classList.contains('opened') && !this.classList.contains('revealed')) {
-                        this.style.transform = '';
-                        this.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.2)';
-                    }
-                };
-                
-                chest.onclick = () => openTreasureChest(i, selectedChestIndex);
-                treasureGrid.appendChild(chest);
+                for (let i = 0; i < 6; i++) {
+                    const chest = document.createElement('div');
+                    chest.innerHTML = '📦';
+                    chest.style.cssText = `
+                        width: 120px; 
+                        height: 120px; 
+                        background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%); 
+                        border: 3px solid #d4af37; 
+                        border-radius: 15px; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        font-size: 3rem; 
+                        cursor: pointer; 
+                        transition: all 0.3s ease; 
+                        position: relative; 
+                        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+                    `;
+                    
+                    chest.onmouseover = function() {
+                        if (!this.classList.contains('opened') && !this.classList.contains('revealed')) {
+                            this.style.transform = 'translateY(-5px)';
+                            this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.3), 0 0 25px rgba(212, 175, 55, 0.4)';
+                        }
+                    };
+                    
+                    chest.onmouseout = function() {
+                        if (!this.classList.contains('opened') && !this.classList.contains('revealed')) {
+                            this.style.transform = '';
+                            this.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.2)';
+                        }
+                    };
+                    
+                    chest.onclick = () => openTreasureChest(i, selectedChestIndex);
+                    treasureGrid.appendChild(chest);
+                }
             }
             
-            document.getElementById('treasureResult').innerHTML = '';
-            document.getElementById('newTreasureGame').style.display = 'none';
+            const treasureResultEl = document.getElementById('treasureResult');
+            const newTreasureGameEl = document.getElementById('newTreasureGame');
+            
+            if (treasureResultEl) treasureResultEl.innerHTML = '';
+            if (newTreasureGameEl) newTreasureGameEl.style.display = 'none';
         }
 
         function openTreasureChest(chestIndex, selectedChestIndex) {
             if (!treasureGameActive) return;
             
             treasureGameActive = false;
-            const chests = document.querySelectorAll('.treasure-chest');
+            const chests = document.querySelectorAll('#treasureGrid div');
             const selectedChest = chests[chestIndex];
-            const reward = treasureChests[selectedChestIndex]; // Always use the pre-selected reward
+            const reward = treasureChests[selectedChestIndex];
             
-            // Animate selected chest opening
-            selectedChest.classList.add('opening');
-            selectedChest.onclick = null;
+            if (selectedChest) {
+                selectedChest.style.animation = 'none';
+                setTimeout(() => {
+                    selectedChest.style.animation = 'none';
+                    selectedChest.style.transform = 'scale(1.1)';
+                    selectedChest.style.background = 'linear-gradient(135deg, #4a5d23 0%, #6b8e23 50%, #4a5d23 100%)';
+                }, 10);
+                
+                selectedChest.onclick = null;
+            }
             
             createSlotSpinSound();
             
             setTimeout(() => {
-                // Show the selected chest contents
-                selectedChest.classList.add('opened');
-                selectedChest.classList.remove('opening');
-                selectedChest.innerHTML = reward.symbol;
+                if (selectedChest) {
+                    selectedChest.innerHTML = reward.symbol;
+                }
                 
-                // Reveal all other chests in grayed out form
                 chests.forEach((chest, index) => {
-                    if (index !== chestIndex) {
-                        chest.classList.add('revealed');
+                    if (index !== chestIndex && chest) {
+                        chest.style.background = 'linear-gradient(135deg, #444 0%, #666 50%, #444 100%)';
+                        chest.style.opacity = '0.6';
                         chest.innerHTML = treasureChests[index].symbol;
                         chest.onclick = null;
                     }
                 });
                 
-                // Show result
-                document.getElementById('treasureResult').innerHTML = `
-                    <div class="result animate" style="font-size: 1.5rem; margin: 2rem 0; color: ${reward.multiplier > 0 ? '#32CD32' : '#d4af37'};">
-                        ${reward.message}
-                        ${reward.multiplier > 0 ? `<div style="font-size: 2rem; margin-top: 1rem;">${reward.symbol}</div>` : ''}
-                    </div>
-                `;
+                const treasureResultEl = document.getElementById('treasureResult');
+                if (treasureResultEl) {
+                    treasureResultEl.innerHTML = `
+                        <div class="result animate" style="font-size: 1.5rem; margin: 2rem 0; color: ${reward.multiplier > 0 ? '#32CD32' : '#d4af37'};">
+                            ${reward.message}
+                            ${reward.multiplier > 0 ? `<div style="font-size: 2rem; margin-top: 1rem;">${reward.symbol}</div>` : ''}
+                        </div>
+                    `;
+                }
                 
                 if (reward.multiplier > 0) {
                     createJackpotSound();
@@ -1675,7 +1535,8 @@
                     createRevealSound(false);
                 }
                 
-                document.getElementById('newTreasureGame').style.display = 'block';
+                const newTreasureGameEl = document.getElementById('newTreasureGame');
+                if (newTreasureGameEl) newTreasureGameEl.style.display = 'block';
             }, 1000);
         }
 
