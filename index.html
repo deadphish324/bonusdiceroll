@@ -600,7 +600,7 @@
                 </div>
                 <div class="game-card" onclick="showPage('slots')">
                     <span class="game-icon">🎰</span>
-                    <h2 class="game-title">Medieval Slot Machine</h2>
+                    <h2 class="game-title">Slot Machine Multiplier</h2>
                     <p class="game-description">Spin the reels with legendary symbols for epic bonus rewards!</p>
                 </div>
             </div>
@@ -609,38 +609,40 @@
         <!-- Dice Game Page -->
         <div class="page" id="dice">
             <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
-            <h1 class="title">Dice Roll Multiplier</h1>
-            
-            <div class="dice-container">
-                <div class="dice" id="dice">
-                    <span id="diceNumber">?</span>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                <h1 class="title">Dice Roll Multiplier</h1>
+                
+                <div class="dice-container">
+                    <div class="dice" id="dice">
+                        <span id="diceNumber">?</span>
+                    </div>
+                    <div class="particles" id="particles"></div>
                 </div>
-                <div class="particles" id="particles"></div>
-            </div>
-            
-            <button class="game-button" id="rollButton" onclick="rollDice()">Let's Roll the Dice!</button>
-            
-            <div class="result" id="result"></div>
-            
-            <div class="probabilities">
-                <h3>Bonus Multipliers Available</h3>
-                <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
-                    🎲 You can get up to ×5 bonus! 🎲
-                </p>
-                <ul class="prob-list">
-                    <li><span>×0 (No Bonus)</span><span>13/20 (65%)</span></li>
-                    <li><span>×2 Multiplier</span><span>3/20 (15%)</span></li>
-                    <li><span>×3 Multiplier</span><span>2/20 (10%)</span></li>
-                    <li><span>×4 Multiplier</span><span>1/20 (5%)</span></li>
-                    <li><span>×5 Multiplier</span><span>1/20 (5%)</span></li>
-                </ul>
+                
+                <button class="game-button" id="rollButton" onclick="rollDice()">Let's Roll the Dice!</button>
+                
+                <div class="result" id="result"></div>
+                
+                <div class="probabilities">
+                    <h3>Bonus Multipliers Available</h3>
+                    <p style="text-align: center; font-size: 1.1rem; color: #32CD32; text-shadow: 0 0 10px rgba(50, 205, 50, 0.5); margin-bottom: 1.5rem;">
+                        🎲 You can get up to ×5 bonus! 🎲
+                    </p>
+                    <ul class="prob-list">
+                        <li><span>×0 (No Bonus)</span><span>13/20 (65%)</span></li>
+                        <li><span>×2 Multiplier</span><span>3/20 (15%)</span></li>
+                        <li><span>×3 Multiplier</span><span>2/20 (10%)</span></li>
+                        <li><span>×4 Multiplier</span><span>1/20 (5%)</span></li>
+                        <li><span>×5 Multiplier</span><span>1/20 (5%)</span></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <!-- Slot Machine Page -->
         <div class="page" id="slots">
             <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
-            <h1 class="title">Medieval Slot Machine</h1>
+            <h1 class="title">Slot Machine Multiplier</h1>
             
             <div class="slot-machine">
                 <div class="slot-reels">
@@ -1132,10 +1134,10 @@
                 // Show special images
                 if (outcome.special === 'rhetoric') {
                     resultHTML += `<div>📚 UNDERSTANDING RHETORIC REVEALED! 📚</div>
-                                  <img class="bonus-image" src="./Cover-removebg-preview.png" alt="Understanding Rhetoric Book Cover">`;
+                                  <img class="bonus-image" src="Cover-removebg-preview.png" alt="Understanding Rhetoric Book Cover" onerror="this.style.display='none'; console.log('Image failed to load: Cover-removebg-preview.png')">`;
                 } else if (outcome.special === 'professional') {
                     resultHTML += `<div>👨‍💼 PROFESSIONAL EXCELLENCE ACHIEVED! 👨‍💼</div>
-                                  <img class="bonus-image" src="./Profile-removebg-preview.png" alt="Professional Headshot">`;
+                                  <img class="bonus-image" src="Profile-removebg-preview.png" alt="Professional Headshot" onerror="this.style.display='none'; console.log('Image failed to load: Profile-removebg-preview.png')">`;
                 }
                 
                 createJackpotSound();
