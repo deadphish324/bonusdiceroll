@@ -763,31 +763,29 @@
             <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
             <h1 class="title">Coin Flip Challenge</h1>
             
-            <div class="coin-game">
-                <div class="flip-counter">
-                    <h3>Flip <span id="currentFlip">1</span> of 5</h3>
-                    <h4>Correct: <span id="correctCount">0</span></h4>
-                </div>
-                
-                <div class="coin-container">
-                    <div class="coin" id="coin">
-                        <div class="coin-side heads" id="coinDisplay">🪙</div>
-                    </div>
-                </div>
-                
-                <div class="coin-choices">
-                    <button class="choice-button" id="headsButton" onclick="makeGuess('heads')">
-                        👨‍🏫<br>Mr. Cunningham<br>(Heads)
-                    </button>
-                    <button class="choice-button" id="tailsButton" onclick="makeGuess('tails')">
-                        📚<br>Understanding Rhetoric<br>(Tails)
-                    </button>
-                </div>
-                
-                <div class="result" id="coinResult"></div>
-                
-                <button class="game-button" id="newCoinGame" onclick="startCoinGame()" style="display: none;">New Challenge</button>
+            <div class="flip-counter">
+                <h3 style="color: #d4af37; font-family: 'Cinzel', serif; margin: 0.5rem 0;">Flip <span id="currentFlip">1</span> of 5</h3>
+                <h4 style="color: #d4af37; font-family: 'Cinzel', serif; margin: 0.5rem 0;">Correct: <span id="correctCount">0</span></h4>
             </div>
+            
+            <div style="margin: 2rem 0;">
+                <div style="width: 150px; height: 150px; background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #d4af37 100%); border-radius: 50%; border: 4px solid #8B4513; display: flex; align-items: center; justify-content: center; font-size: 4rem; margin: 0 auto; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); transition: all 0.5s ease;" id="coin">
+                    <span id="coinDisplay">🪙</span>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 3rem; justify-content: center; margin: 2rem 0;">
+                <button class="game-button" id="headsButton" onclick="makeGuess('heads')" style="min-width: 180px;">
+                    👨‍🏫<br>Mr. Cunningham<br>(Heads)
+                </button>
+                <button class="game-button" id="tailsButton" onclick="makeGuess('tails')" style="min-width: 180px;">
+                    📚<br>Understanding Rhetoric<br>(Tails)
+                </button>
+            </div>
+            
+            <div class="result" id="coinResult"></div>
+            
+            <button class="game-button" id="newCoinGame" onclick="startCoinGame()" style="display: none;">New Challenge</button>
 
             <div class="probabilities">
                 <h3>Streak Bonus System</h3>
@@ -808,17 +806,15 @@
             <button class="back-button" onclick="showPage('landing')">← Back to Games</button>
             <h1 class="title">Treasure Chest Challenge</h1>
             
-            <div class="treasure-game">
-                <p class="treasure-instruction">Choose one chest to reveal your bonus!</p>
-                
-                <div class="treasure-grid" id="treasureGrid">
-                    <!-- Chests will be dynamically generated -->
-                </div>
-                
-                <div class="result" id="treasureResult"></div>
-                
-                <button class="game-button" id="newTreasureGame" onclick="startTreasureGame()" style="display: none;">New Treasure Hunt</button>
+            <p style="font-size: 1.3rem; color: #d4af37; margin-bottom: 2rem; text-align: center;">Choose one chest to reveal your bonus!</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 2rem auto; max-width: 600px;" id="treasureGrid">
+                <!-- Chests will be dynamically generated -->
             </div>
+            
+            <div class="result" id="treasureResult"></div>
+            
+            <button class="game-button" id="newTreasureGame" onclick="startTreasureGame()" style="display: none;">New Treasure Hunt</button>
 
             <div class="probabilities">
                 <h3>Treasure Rewards</h3>
@@ -1452,8 +1448,13 @@
             document.getElementById('headsButton').disabled = true;
             document.getElementById('tailsButton').disabled = true;
             
-            // Start coin flip animation
-            document.getElementById('coin').classList.add('flipping');
+            // Start coin flip animation with inline styles
+            const coin = document.getElementById('coin');
+            coin.style.animation = 'none'; // Reset
+            setTimeout(() => {
+                coin.style.animation = 'coinFlip 2s ease-in-out';
+            }, 10);
+            
             createDiceRollSound(); // Reuse existing sound
             
             // Determine result after animation
@@ -1477,7 +1478,7 @@
                     `Correct! It was ${result === 'heads' ? 'Mr. Cunningham (Heads)' : 'Understanding Rhetoric (Tails)'}!` :
                     `Wrong! It was ${result === 'heads' ? 'Mr. Cunningham (Heads)' : 'Understanding Rhetoric (Tails)'}`;
                 
-                document.getElementById('coinResult').innerHTML = `<div style="color: ${isCorrect ? '#32CD32' : '#ff6b6b'}; margin: 1rem 0;">${resultText}</div>`;
+                document.getElementById('coinResult').innerHTML = `<div style="color: ${isCorrect ? '#32CD32' : '#ff6b6b'}; margin: 1rem 0; font-size: 1.2rem;">${resultText}</div>`;
                 
                 currentFlip++;
                 
@@ -1487,7 +1488,7 @@
                         document.getElementById('currentFlip').textContent = currentFlip;
                         document.getElementById('coinResult').innerHTML = '';
                         document.getElementById('coinDisplay').textContent = '🪙';
-                        document.getElementById('coin').classList.remove('flipping');
+                        coin.style.animation = 'none';
                         
                         // Re-enable buttons
                         document.getElementById('headsButton').disabled = false;
@@ -1588,14 +1589,41 @@
                 chest.message === selectedReward.message
             );
             
-            // Generate chest HTML
+            // Generate chest HTML with inline styles
             const treasureGrid = document.getElementById('treasureGrid');
             treasureGrid.innerHTML = '';
             
             for (let i = 0; i < 6; i++) {
                 const chest = document.createElement('div');
-                chest.className = 'treasure-chest';
                 chest.innerHTML = '📦';
+                chest.style.cssText = `
+                    width: 120px; 
+                    height: 120px; 
+                    background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%); 
+                    border: 3px solid #d4af37; 
+                    border-radius: 15px; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    font-size: 3rem; 
+                    cursor: pointer; 
+                    transition: all 0.3s ease; 
+                    position: relative; 
+                    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+                `;
+                
+                chest.onmouseover = function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.3), 0 0 25px rgba(212, 175, 55, 0.4)';
+                };
+                
+                chest.onmouseout = function() {
+                    if (!this.classList.contains('opened') && !this.classList.contains('revealed')) {
+                        this.style.transform = '';
+                        this.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.2)';
+                    }
+                };
+                
                 chest.onclick = () => openTreasureChest(i, selectedChestIndex);
                 treasureGrid.appendChild(chest);
             }
